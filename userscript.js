@@ -10,6 +10,9 @@ if(window.speechSynthesis.getVoices().length == 0) {
 		textToSpeech();
 	});
 }
+else {
+	setTimeout(textToSpeech, 3000);
+}
 
 function textToSpeech() {
 	var available_voices = window.speechSynthesis.getVoices();
@@ -28,7 +31,7 @@ function textToSpeech() {
 	var utter = new SpeechSynthesisUtterance();
 	utter.rate = 1;
 	utter.pitch = 0.5;
-	utter.text = document.querySelector('.receiptSecondarylbl').textContent.trim();
+	utter.text = document.querySelector('.receiptSecondarylbl').textContent.trim().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1!') + '!.' + document.querySelector('.receiptSecondarylbl').textContent.trim().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1!');
 	utter.voice = english_voice;
 
 	utter.onend = function() {
